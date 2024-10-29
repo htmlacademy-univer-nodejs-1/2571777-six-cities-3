@@ -7,21 +7,30 @@
     "api",
     "node.js"
   ],
-  "main": "main.js",
+  "main": "main.rest.js",
   "scripts": {
-    "start": "npm run build && node ./dist/main.js",
+    "start": "npm run build && node ./dist/src/main.rest.js",
+    "start:dev": "npm run build && node ./dist/src/main.rest.js | pino-pretty --colorize --translateTime SYS:standard",
+    "cli": "npm run build && node ./dist/main.cli.js",
+    "json-server": "json-server --watch src/mocks/mock-server-data.json --port 3000",
     "build": "npm run clean && npm run compile",
-    "lint": "eslint src/ --ext .ts",
-    "compile": "tsc -p tsconfig.json",
-    "clean": "rimraf dist",
+    "lint": "sudo eslint src/ --ext .ts",
+    "compile": "sudo tsc -p tsconfig.json",
+    "clean": "sudo rimraf dist",
     "ts": "ts-node"
   },
   "devDependencies": {
+    "@types/convict": "^6.1.6",
+    "@types/convict-format-with-validator": "^6.0.5",
+    "@types/dotenv": "^6.1.1",
+    "@types/json2csv": "^5.0.7",
     "@types/node": "18.17.17",
+    "@types/reflect-metadata": "^0.0.5",
     "@typescript-eslint/eslint-plugin": "6.7.0",
     "@typescript-eslint/parser": "6.7.0",
     "eslint": "8.49.0",
     "eslint-config-htmlacademy": "9.1.1",
+    "pino-pretty": "^11.3.0",
     "rimraf": "5.0.1",
     "ts-node": "10.9.1",
     "typescript": "5.2.2"
@@ -30,5 +39,18 @@
   "engines": {
     "node": "^18.0.0",
     "npm": ">=8"
+  },
+  "dependencies": {
+    "18": "^0.0.0",
+    "axios": "^1.7.7",
+    "convict": "^6.2.4",
+    "convict-format-with-validator": "^6.2.0",
+    "dotenv": "^16.4.5",
+    "inversify": "^6.0.3",
+    "json-server": "^1.0.0-beta.3",
+    "json2csv": "^6.0.0-alpha.2",
+    "pino": "^9.5.0",
+    "reflect-metadata": "^0.2.2",
+    "tslib": "^2.8.0"
   }
 }
