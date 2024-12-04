@@ -5,14 +5,28 @@ import chalk from 'chalk';
 import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import 'reflect-metadata';
+import { Logger } from '../shared/libs/logger/index.js';
+import { Component } from '../shared/types/component.emun.js';
 import { TSVReader } from './cli/TSVReader.js';
 import { TSVWriter } from './cli/TSVWriter.js';
+import { DB } from './connect.db.js';
+import { RentalOfferService } from './DatabaseServices/RentalOffer/RentalOfferService.js';
+import { container } from './main.rest.js';
 import { RentalOffer } from './models/rental-offer.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const rentalOfferService = container.get<RentalOfferService>(
+  Component.RentalOfferService
+);
+const logger = container.get<Logger>(Component.Logger);
+const db = container.get<DB>(Component.DB);
+console.log(__dirname);
+
 const version = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '../package.json'), 'utf-8')
+  fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf-8')
 ).version;
 
 const showHelp = () => {
@@ -24,8 +38,14 @@ const showHelp = () => {
   );
 };
 
-const importData = async (filePath: string): Promise<void> => {
+const importData = async (
+  filePath: string,
+  connectionString: string
+): Promise<void> => {
   const reader: TSVReader = new TSVReader(filePath);
+  await db
+    .initialize(connectionString)
+    .catch((err) => console.error('Ошибка инициализации базы данных:', err));
   let readNext = true;
 
   while (readNext) {
@@ -34,13 +54,23 @@ const importData = async (filePath: string): Promise<void> => {
       readNext = false;
       continue;
     }
+    logger.info(JSON.stringify(result));
     const [rentalOffer, countRentalOffers] = result;
-    console.log(
-      chalk.green(
-        `Успешно импортированы : ${countRentalOffers} предложений аренды`
-      ),
-      rentalOffer
-    );
+
+    try {
+      const createResult = await rentalOfferService.create(rentalOffer);
+      logger.info(
+        chalk.green(
+          `Успешно импортированы : ${countRentalOffers} предложений аренды`
+        ),
+        createResult
+      );
+    } catch (error) {
+      logger.error(
+        'Ошибка при сохранении предложения аренды в базу данных:',
+        error as Error
+      );
+    }
   }
 };
 
@@ -75,8 +105,8 @@ switch (command) {
     break;
   case '--import':
     {
-      const [filePath] = args;
-      importData(filePath);
+      const [filePath, connectionString] = args;
+      importData(filePath, connectionString);
     }
     break;
   case '--generate': {
