@@ -10,8 +10,9 @@
   "main": "main.rest.js",
   "scripts": {
     "start": "npm run build && node ./dist/src/main.rest.js",
+    "connect": "npm run build && node ./dist/src/connect.db.js",
     "start:dev": "npm run build && node ./dist/src/main.rest.js | pino-pretty --colorize --translateTime SYS:standard",
-    "cli": "npm run build && node ./dist/main.cli.js",
+    "cli": "npm run build && node ./dist/src/main.cli.js",
     "json-server": "json-server --watch src/mocks/mock-server-data.json --port 3000",
     "build": "npm run clean && npm run compile",
     "lint": "sudo eslint src/ --ext .ts",
@@ -46,9 +47,10 @@
     "convict": "^6.2.4",
     "convict-format-with-validator": "^6.2.0",
     "dotenv": "^16.4.5",
-    "inversify": "^6.0.3",
+    "inversify": "^6.1.6",
     "json-server": "^1.0.0-beta.3",
     "json2csv": "^6.0.0-alpha.2",
+    "mongoose": "^8.8.0",
     "pino": "^9.5.0",
     "reflect-metadata": "^0.2.2",
     "tslib": "^2.8.0"
