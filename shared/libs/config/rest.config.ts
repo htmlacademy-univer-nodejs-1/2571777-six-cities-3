@@ -1,9 +1,9 @@
-import { config } from 'dotenv';
-import { inject, injectable } from 'inversify';
-import { Component } from '../../types/component.emun.js';
-import { Logger } from '../logger/index.js';
-import { Config } from './config.interface.js';
-import { configRestSchema, RestSchema } from './rest.schema.js';
+import { config } from "dotenv";
+import { inject, injectable } from "inversify";
+import { Component } from "../../types/component.js";
+import { Logger } from "../logger/index.js";
+import { Config } from "./config.interface.js";
+import { configRestSchema, RestSchema } from "./rest.schema.js";
 
 @injectable()
 export class RestConfig implements Config<RestSchema> {
@@ -12,14 +12,14 @@ export class RestConfig implements Config<RestSchema> {
     const parsedOutput = config();
 
     if (parsedOutput.error) {
-      throw new Error('Can\'t read .env file. Perhaps the file does not exists');
+      throw new Error("Can't read .env file. Perhaps the file does not exists");
     }
 
     configRestSchema.load({});
-    configRestSchema.validate({ allowed: 'strict', output: this.logger.info });
+    configRestSchema.validate({ allowed: "strict", output: this.logger.info });
 
     this.config = configRestSchema.getProperties();
-    this.logger.info('.env file found and successfully parsed!');
+    this.logger.info(".env file found and successfully parsed!");
   }
 
   public get<T extends keyof RestSchema>(key: T): RestSchema[T] {

@@ -1,9 +1,9 @@
-import * as fs from 'fs';
-import * as readline from 'readline';
+import * as fs from 'node:fs';
+import * as readline from 'node:readline';
+import { HousingType } from '../../shared/enums/housing-type.enum.js';
 import { City } from '../models/city.enum.js';
 import { Convenience } from '../models/convenience.enum.js';
-import { HousingType } from '../models/housing-type.enum.js';
-import { RentalOffer } from '../models/rental-offer.js';
+import { CreateOfferDto } from '../../shared/libs/modules/offer/index.js';
 
 function parseEnum<T>(enumObj: T, key: string): T[keyof T] {
   return enumObj[key as keyof T];
@@ -24,7 +24,7 @@ export class TSVReader {
     this.countRentalOffers = 0;
   }
 
-  public async getRentalOffer(): Promise<[RentalOffer, number] | undefined> {
+  public async getRentalOffer(): Promise<[CreateOfferDto, number] | undefined> {
     const { value, done } = await this.getNextLine.next();
     if (done) {
       this.readStream.close();
@@ -35,7 +35,7 @@ export class TSVReader {
     return [rentalOffer, this.countRentalOffers];
   }
 
-  public parseRentalOffer(fields: string[]): RentalOffer {
+  public parseRentalOffer(fields: string[]): CreateOfferDto {
     return {
       name: fields[0],
       offerDescription: fields[1],
@@ -53,9 +53,10 @@ export class TSVReader {
       convenienceList: fields[13].split(';') as Convenience[],
       author: fields[14],
       commentsCount: parseInt(fields[15], 10),
+      averageRating: parseFloat(fields[16]),
       offerCoordinates: {
-        latitude: parseFloat(fields[16].split(', ')[0]),
-        longitude: parseFloat(fields[16].split(', ')[1]),
+        latitude: parseFloat(fields[17].split(', ')[0]),
+        longitude: parseFloat(fields[17].split(', ')[1]),
       },
     };
   }

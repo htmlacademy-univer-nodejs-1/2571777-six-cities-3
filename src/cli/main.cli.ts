@@ -6,24 +6,24 @@ import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import 'reflect-metadata';
-import { Logger } from '../shared/libs/logger/index.js';
-import { Component } from '../shared/types/component.emun.js';
-import { TSVReader } from './cli/TSVReader.js';
-import { TSVWriter } from './cli/TSVWriter.js';
-import { DB } from './connect.db.js';
-import { RentalOfferService } from './DatabaseServices/RentalOffer/RentalOfferService.js';
-import { container } from './main.rest.js';
-import { RentalOffer } from './models/rental-offer.js';
+import { Logger } from '../../shared/libs/logger/index.js';
+import { Component } from '../../shared/types/component.js';
+import { TSVReader } from './TSVReader.js';
+import { TSVWriter } from './TSVWriter.js';
+import { appContainer } from '../main.rest.js';
+import { RentalOffer } from '../models/rental-offer.js';
+import { getMongoURI } from '../../shared/libs/helpers/index.js';
+import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constants.js';
+import { DatabaseClient } from '../../shared/libs/database-client/database-client.interface.js';
+import { DefaultOfferService } from '../../shared/libs/modules/offer/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const rentalOfferService = container.get<RentalOfferService>(
+const rentalOfferService = appContainer.get<DefaultOfferService>(
   Component.RentalOfferService
 );
-const logger = container.get<Logger>(Component.Logger);
-const db = container.get<DB>(Component.DB);
-console.log(__dirname);
+const logger = appContainer.get<Logger>(Component.Logger);
 
 const version = JSON.parse(
   fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf-8')
@@ -40,12 +40,16 @@ const showHelp = () => {
 
 const importData = async (
   filePath: string,
-  connectionString: string
+  login: string,
+  password: string,
+  host: string,
+  dbname: string,
+  salt: string
 ): Promise<void> => {
   const reader: TSVReader = new TSVReader(filePath);
-  await db
-    .initialize(connectionString)
-    .catch((err) => console.error('Ошибка инициализации базы данных:', err));
+  const databaseClient = appContainer.get<DatabaseClient>(Component.DatabaseClient);
+  const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
+  await databaseClient.connect(uri);
   let readNext = true;
 
   while (readNext) {
@@ -105,8 +109,8 @@ switch (command) {
     break;
   case '--import':
     {
-      const [filePath, connectionString] = args;
-      importData(filePath, connectionString);
+      const [filePath, login, password, host, dbname, salt] = args;
+      importData(filePath, login, password, host, dbname, salt);
     }
     break;
   case '--generate': {
