@@ -3,3 +3,11 @@ export * from './default-offer.service.js';
 export * from './offer-service.interface.js';
 export * from './offer.entity.js';
 export * from './offer.container.js';
+export * from './offer.controller.js';
+export * from './rdo/create-offer.rdo.js';
+export * from './requests/create-offer-request.type.js';
+export * from './dto/edit-offer.dto.js';
+export * from './requests/edit-offer-request.type.js';
+export * from './dto/delete-offer.dto.js';
+export * from './dto/get-all-offer.dto.js'
+export * from './requests/get-all-offer-request.type.js';

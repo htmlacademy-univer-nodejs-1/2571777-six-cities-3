@@ -6,6 +6,6 @@ export interface OfferService {
   findById(id: string): Promise<DocumentType<OfferEntity> | null>;
   findAll(city?: string, limit?: number, sortBy?: 'date' | 'price'): Promise<DocumentType<OfferEntity>[]>;
   findPremium(city: string, limit?: number): Promise<DocumentType<OfferEntity>[]>;
-  update(offerId: string, dto: CreateOfferDto): Promise<DocumentType<OfferEntity>>;
+  edit(offerId: string, dto: CreateOfferDto): Promise<DocumentType<OfferEntity>>;
   delete(offerId: string): Promise<DocumentType<OfferEntity>>;
 }

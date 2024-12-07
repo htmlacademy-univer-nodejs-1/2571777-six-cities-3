@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { OfferService, CreateOfferDto, OfferEntity } from './index.js';
+import { OfferService, CreateOfferDto, OfferEntity, EditOfferDto } from './index.js';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
@@ -34,7 +34,7 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async update(offerId: string, dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
+  public async edit(offerId: string, dto: EditOfferDto): Promise<DocumentType<OfferEntity>> {
     const offer = await this.offerModel.findByIdAndUpdate(offerId, dto, { new: true }).exec();
     if (!offer) {
       throw new Error('Offer not found');
