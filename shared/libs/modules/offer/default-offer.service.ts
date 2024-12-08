@@ -1,14 +1,18 @@
 import { inject, injectable } from 'inversify';
-import { OfferService, CreateOfferDto, OfferEntity, EditOfferDto } from './index.js';
+import { OfferService, CreateOfferDto, OfferEntity, EditOfferDto, ParamOfferId } from './index.js';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
+import { Request, Response } from 'express';
+import { CommentRdo, CommentService } from '../comment/index.js';
+import { fillDTO } from '../../helpers/index.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
-    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
+    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
+    @inject(Component.CommentService) private readonly commentService: CommentService
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
@@ -52,5 +56,10 @@ export class DefaultOfferService implements OfferService {
 
     this.logger.info(`Offer ${offerId} deleted.`);
     return offer;
+  }
+
+  public async exists(documentId: string): Promise<boolean> {
+    return (await this.offerModel
+      .exists({_id: documentId})) !== null;
   }
 }

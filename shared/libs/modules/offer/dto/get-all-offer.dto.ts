@@ -1,4 +1,4 @@
-import { City, Convenience, Coordinate } from '../../../../../src/models/index.js';
+import { City } from '../../../../../src/models/index.js';
 
 export class GetAllOfferDto {
   public city!: City;
