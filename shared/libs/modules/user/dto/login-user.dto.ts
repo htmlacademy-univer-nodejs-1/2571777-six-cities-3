@@ -1,4 +1,11 @@
+import { IsEmail, IsString, Length } from 'class-validator';
+import { LoginValidationMessage } from '../index.js';
+
 export class LoginUserDto {
-    public email: string;
-    public password: string;
-  }
+  @IsEmail({}, { message: LoginValidationMessage.email.invalidId })
+  public email!: string;
+
+  @IsString({ message: LoginValidationMessage.password.invalidFormat })
+  @Length(6, 12, { message: LoginValidationMessage.password.lengthField })
+  public password!: string;
+}
