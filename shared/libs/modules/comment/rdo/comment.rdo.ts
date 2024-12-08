@@ -3,15 +3,15 @@ import { CreateUserRdo } from '../../user/index.js';
 
 export class CommentRdo {
   @Expose()
-  public test: string;
+  public test!: string;
 
   @Expose()
-  public publicationDate: string;
+  public publicationDate!: string;
 
   @Expose({ name: 'createdAt'})
-  public rating: number;
+  public rating!: number;
 
   @Expose({ name: 'userId'})
   @Type(() => CreateUserRdo)
-  public authorId: CreateUserRdo;
+  public authorId!: CreateUserRdo;
 }

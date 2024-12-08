@@ -42,21 +42,10 @@ export class OfferController extends BaseController {
     });
   }
 
-  public async create(
-    { body }: CreateOfferRequest,
-    res: Response): Promise<void> {
-    const existOffer = await this.offerService.findById(body.id);
-
-    if (existOffer) {
-      throw new HttpError(
-        StatusCodes.UNPROCESSABLE_ENTITY,
-        `Category with name «${body.name}» exists.`,
-        'CategoryController'
-      );
-    }
-
-    const result = await this.offerService.create(body);
-    this.created(res, fillDTO(CreateOfferDto, result));
+  public async create({ body, tokenPayload }: CreateOfferRequest, res: Response): Promise<void> {
+    const result = await this.offerService.create({ ...body, userId: tokenPayload.id });
+    const offer = await this.offerService.findById(result.id);
+    this.created(res, fillDTO(CreateOfferRdo, offer));
   }
 
   public async edit(

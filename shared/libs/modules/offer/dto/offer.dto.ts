@@ -81,4 +81,6 @@ export class OfferDto {
   @IsObject()
   @ValidateNested()
   public offerCoordinates!: Coordinate;
+
+  public userId!: string;
 }
