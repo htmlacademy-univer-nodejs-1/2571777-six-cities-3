@@ -23,7 +23,12 @@
     "types": ["node"],
     "lib": ["ESNext"]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "shared/types/user.ts",
+    "shared/enums/user-type.enum.ts",
+    "shared/enums/housing-type.enum.ts"
+  ],
   "exclude": ["node_modules", "**/*.test.ts"],
   "ts-node": {
     "esm": true
