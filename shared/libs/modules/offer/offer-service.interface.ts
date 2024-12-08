@@ -9,5 +9,6 @@ export interface OfferService extends DocumentExists {
   findPremium(city: string, limit?: number): Promise<DocumentType<OfferEntity>[]>;
   edit(offerId: string, dto: CreateOfferDto): Promise<DocumentType<OfferEntity>>;
   delete(offerId: string): Promise<DocumentType<OfferEntity>>;
-  exists(documentId: string): Promise<boolean>
+  exists(documentId: string): Promise<boolean>;
+  incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null>;
 }
