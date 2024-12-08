@@ -1,12 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpError } from '../../rest/index.js';
+import { BaseController, HttpError, ValidateObjectIdMiddleware } from '../../rest/index.js';
 import { Logger } from '../../logger/logger.interface.js';
 import { Component, HttpMethod } from '../../../types/index.js';
 import { CreateOfferDto, OfferService, CreateOfferRdo, 
     CreateOfferRequest, EditOfferRequest, 
     EditOfferDto, DeleteOfferDto, GetAllOfferRequest, 
-    GetAllOfferDto} from './index.js';
+    GetAllOfferDto,
+    ParamsGetAll} from './index.js';
 import { fillDTO } from '../../helpers/index.js';
 import { StatusCodes } from 'http-status-codes';
 
@@ -20,7 +21,11 @@ export class OfferController extends BaseController {
 
         this.logger.info('Register routes for OfferController');
 
-        this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index});
+        this.addRoute({ 
+            path: '/:offerId', 
+            method: HttpMethod.Get, 
+            handler: this.index, 
+            middlewares: [new ValidateObjectIdMiddleware('offerId')]});
         this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create});
     }
 
@@ -75,10 +80,9 @@ export class OfferController extends BaseController {
         this.delete(res, fillDTO(DeleteOfferDto, result));
     }
 
-    public async getAll(
-        { body }: GetAllOfferRequest,
+    public async getAll( { params } : Request<ParamsGetAll>,
         res: Response): Promise<void> {
-        const result = await this.offerService.findAll(body.city, body.limit, body.sortBy);
+        const result = await this.offerService.findAll(params.city, params.limit, params.sortBy);
         this.getAll(res, fillDTO(CreateOfferDto, result));
     }
 
