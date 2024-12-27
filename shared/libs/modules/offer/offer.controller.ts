@@ -1,16 +1,22 @@
-import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpError, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../rest/index.js';
-import { Logger } from '../../logger/logger.interface.js';
-import { Component, HttpMethod } from '../../../types/index.js';
-import { CreateOfferDto, OfferService, CreateOfferRdo,
-  CreateOfferRequest, EditOfferRequest,
-  EditOfferDto, DeleteOfferDto,
-  ParamsGetAll,
-  ParamOfferId} from './index.js';
-import { fillDTO } from '../../helpers/index.js';
 import { StatusCodes } from 'http-status-codes';
+import { inject, injectable } from 'inversify';
+import { Component, HttpMethod } from '../../../types/index.js';
+import { fillDTO } from '../../helpers/index.js';
+import { Logger } from '../../logger/logger.interface.js';
+import { BaseController, HttpError, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../rest/index.js';
 import { CommentRdo, CommentService } from '../comment/index.js';
+import {
+  CreateOfferDto,
+  CreateOfferRdo,
+  CreateOfferRequest,
+  DeleteOfferDto,
+  EditOfferDto,
+  EditOfferRequest,
+  OfferService,
+  ParamOfferId,
+  ParamsGetAll
+} from './index.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -84,7 +90,7 @@ export class OfferController extends BaseController {
 
   public async getAll({ params } : Request<ParamsGetAll>,
     res: Response): Promise<void> {
-    const result = await this.offerService.findAll(params.city, params.limit, params.orderBy);
+    const result = await this.offerService.findAll(params.city, +params.limit, params.orderBy);
     this.ok(res, fillDTO(CreateOfferDto, result));
   }
 

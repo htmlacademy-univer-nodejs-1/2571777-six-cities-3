@@ -15,7 +15,7 @@ export abstract class BaseController implements Controller {
   constructor(
         protected readonly logger: Logger
   ){
-    this._router = new Router();
+    this._router = Router();
   }
 
   get router(){

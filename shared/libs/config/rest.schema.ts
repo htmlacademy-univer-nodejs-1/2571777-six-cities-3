@@ -13,6 +13,8 @@ export type RestSchema = {
   DB_HOST: string;
   UPLOAD_DIRECTORY: string;
   JWT_SECRET: string;
+  HOST: string;
+  STATIC_DIRECTORY_PATH: string;
 };
 
 export const configRestSchema = convict<RestSchema>({
@@ -50,7 +52,7 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Database port',
     format: 'port',
     env: 'DB_PORT',
-    default: 5454
+    default: 27017
   },
   DB_NAME: {
     doc: 'Database name',
@@ -62,13 +64,25 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Upload directory',
     format: String,
     env: 'UPLOAD_DIRECTORY',
-    default: null,
+    default: '/uploads',
   },
   JWT_SECRET: {
     doc: 'Secret for sung JWT',
     format: String,
     env: 'JWT_SECRET',
     default: null,
+  },
+  HOST: {
+    doc: 'Host where started service',
+    format: String,
+    env: 'HOST',
+    default: 'localhost'
+  },
+  STATIC_DIRECTORY_PATH: {
+    doc: 'Path to directory with static resources',
+    format: String,
+    env: 'STATIC_DIRECTORY_PATH',
+    default: 'static'
   },
 });
 

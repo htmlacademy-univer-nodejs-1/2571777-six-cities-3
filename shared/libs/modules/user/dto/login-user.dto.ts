@@ -1,5 +1,5 @@
 import { IsEmail, IsString, Length } from 'class-validator';
-import { LoginValidationMessage } from '../index.js';
+import { LoginValidationMessage } from './login-message.js';
 
 export class LoginUserDto {
   @IsEmail({}, { message: LoginValidationMessage.email.invalidId })

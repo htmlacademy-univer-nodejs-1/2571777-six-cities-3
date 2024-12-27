@@ -1,5 +1,5 @@
 import { IsDateString, IsMongoId, IsNumber, Max, MaxLength, Min, MinLength } from 'class-validator';
-import { CommentValidationMessage } from '../index.js';
+import { CommentValidationMessage } from './comment.message.js';
 
 export class CommentDto {
   @MinLength(5, {message: CommentValidationMessage.text.minLength})

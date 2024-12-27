@@ -1,6 +1,6 @@
 import { IsEnum, IsUrl, IsEmail, IsString, Length } from 'class-validator';
 import { UserType } from '../../../../enums/index.js';
-import { UserValidationMessage } from '../index.js';
+import { UserValidationMessage } from './user-message.js';
 
 export class CreateUserDto {
   @IsEmail({}, { message: UserValidationMessage.email.invalidId })

@@ -1,19 +1,19 @@
 ###
 
-POST http://localhost:4000/users/register HTTP/1.1
+POST http://localhost:3000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "torans@overlook.net",
-  "avatarPath": "torrance.png",
-  "firstname": "Jack",
-  "lastname": "Torrance",
-  "password": "shining"
+  "email": "toransoverlook.net",
+  "avatar": "torrance.png",
+  "name": "Jack",
+  "password": "shining",
+  "type": "Pro"
 }
 
 ###
 
-POST http://localhost:4000/users/login HTTP/1.1
+POST http://localhost:3000/users/login HTTP/1.1
 Content-Type: application/json
 
 {

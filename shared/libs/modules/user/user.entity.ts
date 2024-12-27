@@ -1,4 +1,4 @@
-import { defaultClasses, getModelForClass, prop, ModelOptions, modelOptions } from '@typegoose/typegoose';
+import { defaultClasses, getModelForClass, prop, modelOptions } from '@typegoose/typegoose';
 import { UserType } from '../../../enums/user-type.enum.js';
 import { User } from '../../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';

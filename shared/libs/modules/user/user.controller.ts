@@ -1,16 +1,16 @@
-import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { BaseController, HttpError, UploadFileMiddleware, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../../libs/rest/index.js';
+import { inject, injectable } from 'inversify';
 import { Logger } from '../../../libs/logger/index.js';
+import { BaseController, HttpError, UploadFileMiddleware, ValidateDtoMiddleware, ValidateObjectIdMiddleware } from '../../../libs/rest/index.js';
 import { Component, HttpMethod } from '../../../types/index.js';
-import { CreateUserRequest } from './create-user-request.type.js';
-import { CreateUserDto, LoginUserDto, UserService } from './index.js';
 import { Config, RestSchema } from '../../config/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { CreateUserRdo } from './rdo/create-user.rdo.js';
-import { LoginUserRequest } from './login-user-request.type.js';
 import { AuthService } from '../auth/index.js';
+import { CreateUserRequest } from './create-user-request.type.js';
+import { CreateUserDto, LoginUserDto, UserService } from './index.js';
+import { LoginUserRequest } from './login-user-request.type.js';
+import { CreateUserRdo } from './rdo/create-user.rdo.js';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
 
 @injectable()
@@ -24,7 +24,8 @@ export class UserController extends BaseController {
     super(logger);
     this.logger.info('Register routes for UserController…');
 
-    this.addRoute({ path: '/register',
+    this.addRoute({
+      path: '/register',
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)],

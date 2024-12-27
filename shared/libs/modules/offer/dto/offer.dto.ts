@@ -5,9 +5,11 @@ import {
   Coordinate,
 } from '../../../../../src/models/index.js';
 import { HousingType } from '../../../../enums/index.js';
-import { OfferValidationMessage } from '../index.js';
+import { OfferValidationMessage } from './offer-messages.js';
 
 export class OfferDto {
+  public id!: string;
+
   @MinLength(10, { message: OfferValidationMessage.name.minLength })
   @MaxLength(100, { message: OfferValidationMessage.name.maxLength })
   public name!: string;

@@ -27,7 +27,8 @@
     "src/**/*.ts",
     "shared/types/user.ts",
     "shared/enums/user-type.enum.ts",
-    "shared/enums/housing-type.enum.ts"
+    "shared/enums/housing-type.enum.ts",
+    "shared/libs/rest/rest.constant.ts"
   ],
   "exclude": ["node_modules", "**/*.test.ts"],
   "ts-node": {

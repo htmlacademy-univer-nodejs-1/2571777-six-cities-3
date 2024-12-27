@@ -13,7 +13,7 @@ import { TSVWriter } from './TSVWriter.js';
 import { appContainer } from '../main.rest.js';
 import { RentalOffer } from '../models/rental-offer.js';
 import { getMongoURI } from '../../shared/libs/helpers/index.js';
-import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constants.js';
+import { DEFAULT_DB_PORT } from './command.constants.js';
 import { DatabaseClient } from '../../shared/libs/database-client/database-client.interface.js';
 import { DefaultOfferService } from '../../shared/libs/modules/offer/index.js';
 
@@ -21,7 +21,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const rentalOfferService = appContainer.get<DefaultOfferService>(
-  Component.RentalOfferService
+  Component.OfferService
 );
 const logger = appContainer.get<Logger>(Component.Logger);
 
@@ -43,8 +43,7 @@ const importData = async (
   login: string,
   password: string,
   host: string,
-  dbname: string,
-  salt: string
+  dbname: string
 ): Promise<void> => {
   const reader: TSVReader = new TSVReader(filePath);
   const databaseClient = appContainer.get<DatabaseClient>(Component.DatabaseClient);
@@ -109,8 +108,8 @@ switch (command) {
     break;
   case '--import':
     {
-      const [filePath, login, password, host, dbname, salt] = args;
-      importData(filePath, login, password, host, dbname, salt);
+      const [filePath, login, password, host, dbname] = args;
+      importData(filePath, login, password, host, dbname);
     }
     break;
   case '--generate': {

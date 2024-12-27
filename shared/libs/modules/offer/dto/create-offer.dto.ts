@@ -1,4 +1,4 @@
-import { OfferDto } from '../index.js';
+import { OfferDto } from './offer.dto.js';
 
 export class CreateOfferDto extends OfferDto {
 }
