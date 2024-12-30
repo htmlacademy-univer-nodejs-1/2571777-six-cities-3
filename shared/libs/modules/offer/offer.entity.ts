@@ -1,7 +1,15 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
-import { City, Convenience, Coordinate } from '../../../../src/models/index.js';
+import { City, Convenience } from '../../../../src/models/index.js';
 import { HousingType } from '../../../enums/index.js';
 import { UserEntity } from '../user/index.js';
+
+export class Coordinate {
+  @prop({ required: true })
+  latitude!: number;
+
+  @prop({ required: true })
+  longitude!: number;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface OfferEntity extends defaultClasses.Base {}

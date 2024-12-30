@@ -40,7 +40,7 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Database user',
     format: String,
     env: 'DB_USER',
-    default: 'name',
+    default: 'admin',
   },
   DB_PASSWORD: {
     doc: 'Database password',
@@ -58,7 +58,7 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Database name',
     format: String,
     env: 'DB_NAME',
-    default: 'base'
+    default: 'db'
   },
   UPLOAD_DIRECTORY: {
     doc: 'Upload directory',

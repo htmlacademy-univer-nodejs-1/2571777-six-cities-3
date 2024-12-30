@@ -45,7 +45,7 @@ export class CreateOfferRdo {
     @Expose()
     public convenienceList!: Convenience[];
   
-    @Expose()
+    @Expose({ name: 'author' })
     @Type(() => CreateUserDto)
     public author!: CreateUserDto;
   

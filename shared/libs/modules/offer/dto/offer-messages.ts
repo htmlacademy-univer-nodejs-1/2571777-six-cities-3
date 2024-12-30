@@ -54,7 +54,7 @@ export const OfferValidationMessage = {
     invalidId: 'convenienceList field must be an array of valid id'
   },
   author: {
-    invalidUrl: 'url must be valid',
+    invalidMongoId: 'mongoId must be valid',
   },
   commentsCount: {
     invalidFormat: 'guestsCount must be an integer',

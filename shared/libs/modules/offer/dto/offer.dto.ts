@@ -1,4 +1,4 @@
-import { IsDateString, MaxLength, MinLength, IsEnum, IsUrl, IsArray, IsBoolean, IsInt, Min, Max, ArrayMinSize, ArrayMaxSize, IsNumber, IsObject, ValidateNested } from 'class-validator';
+import { IsDateString, MaxLength, MinLength, IsEnum, IsUrl, IsArray, IsBoolean, IsInt, Min, Max, ArrayMinSize, ArrayMaxSize, IsNumber, IsMongoId } from 'class-validator';
 import {
   City,
   Convenience,
@@ -6,6 +6,7 @@ import {
 } from '../../../../../src/models/index.js';
 import { HousingType } from '../../../../enums/index.js';
 import { OfferValidationMessage } from './offer-messages.js';
+import { Type } from 'class-transformer';
 
 export class OfferDto {
   public id!: string;
@@ -28,7 +29,7 @@ export class OfferDto {
   public previewUrl!: string;
 
   @IsArray({ message: OfferValidationMessage.housingImages.invalidFormat})
-  @IsUrl({}, {message: OfferValidationMessage.housingImages.invalidId})
+  @IsUrl({}, {each: true, message: OfferValidationMessage.housingImages.invalidId})
   @ArrayMinSize(4)
   @ArrayMaxSize(4)
   public housingImages!: string[];
@@ -63,12 +64,12 @@ export class OfferDto {
   public rentalCost!: number;
 
   @IsArray({ message: OfferValidationMessage.housingImages.invalidFormat})
-  @IsUrl({}, {message: OfferValidationMessage.housingImages.invalidId})
+  @IsEnum(Convenience, { each: true, message: OfferValidationMessage.convenienceList.invalidId })
   @ArrayMinSize(1)
   @ArrayMaxSize(7)
   public convenienceList!: Convenience[];
 
-  @IsUrl({}, {message: OfferValidationMessage.author.invalidUrl})
+  @IsMongoId({message: OfferValidationMessage.author.invalidMongoId})
   public author!: string;
 
   @IsInt({message: OfferValidationMessage.guestsCount.invalidFormat})
@@ -80,9 +81,6 @@ export class OfferDto {
   @Max(5, {message: OfferValidationMessage.rating.maxValue})
   public averageRating!: number;
 
-  @IsObject()
-  @ValidateNested()
+  @Type(() => Coordinate)
   public offerCoordinates!: Coordinate;
-
-  public userId!: string;
 }

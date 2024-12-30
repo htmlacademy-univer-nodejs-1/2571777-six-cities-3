@@ -14,13 +14,15 @@ export class DefaultOfferService implements OfferService {
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
+    this.logger.info(dto.offerCoordinates.latitude.toString());
+    this.logger.info(dto.offerCoordinates.longitude.toString());
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.name}`);
     return result;
   }
 
   public async findById(id: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(id).exec();
+    return this.offerModel.findById(id).populate('author').exec();
   }
 
   public async findAll(city?: string, limit = 60, sortBy: 'date' | 'price' = 'date'): Promise<DocumentType<OfferEntity>[]> {

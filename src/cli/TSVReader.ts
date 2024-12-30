@@ -58,8 +58,7 @@ export class TSVReader {
       offerCoordinates: {
         latitude: parseFloat(fields[18].split(', ')[0]),
         longitude: parseFloat(fields[18].split(', ')[1]),
-      },
-      userId: fields[19]
+      }
     };
   }
 }

@@ -1,5 +1,6 @@
 import express, { Express } from 'express';
 import { inject, injectable } from 'inversify';
+import cors from 'cors';
 import { Config } from '../../shared/libs/config/index.js';
 import { RestSchema } from '../../shared/libs/config/rest.schema.js';
 import { DatabaseClient } from '../../shared/libs/database-client/index.js';
@@ -39,6 +40,11 @@ export class RestApplication {
   }
 
   private async _initDb() {
+    this.logger.info(this.config.get('DB_USER'));
+    this.logger.info(this.config.get('DB_PASSWORD'));
+    this.logger.info(this.config.get('DB_HOST'));
+    this.logger.info(this.config.get('DB_PORT').toString());
+    this.logger.info(this.config.get('DB_NAME'));
     const mongoUri = getMongoURI(
       this.config.get('DB_USER'),
       this.config.get('DB_PASSWORD'),
@@ -46,6 +52,8 @@ export class RestApplication {
       this.config.get('DB_PORT'),
       this.config.get('DB_NAME')
     );
+
+    this.logger.info(mongoUri);
 
     await this.databaseClient.connect(mongoUri);
   }
@@ -66,6 +74,7 @@ export class RestApplication {
     this.server.use(
       authenticateMiddleware.execute.bind(authenticateMiddleware)
     );
+    this.server.use(cors());
   }
 
   private async _initExceptionFilters() {
