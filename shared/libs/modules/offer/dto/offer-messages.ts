@@ -1,4 +1,7 @@
 export const OfferValidationMessage = {
+  id: {
+    invalidMongoId: 'mongoId must be valid',
+  },
   name: {
     minLength: 'Minimum name length must be 10',
     maxLength: 'Maximum name length must be 100'
@@ -54,7 +57,7 @@ export const OfferValidationMessage = {
     invalidId: 'convenienceList field must be an array of valid id'
   },
   author: {
-    invalidUrl: 'url must be valid',
+    invalidMongoId: 'mongoId must be valid',
   },
   commentsCount: {
     invalidFormat: 'guestsCount must be an integer',

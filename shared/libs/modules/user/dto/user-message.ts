@@ -16,4 +16,8 @@ export const UserValidationMessage = {
   type: {
     invalidId: 'type must be Basic/Pro',
   },
+  favorites: {
+    invalidFormat: 'favorites must be array',
+    invalidId: 'value favorites is invalidId'
+  }
 } as const;

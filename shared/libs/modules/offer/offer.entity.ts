@@ -1,5 +1,5 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
-import { City, Convenience, Coordinate } from '../../../../src/models/index.js';
+import { City, Convenience } from '../../../../src/models/index.js';
 import { HousingType } from '../../../enums/index.js';
 import { UserEntity } from '../user/index.js';
 
@@ -60,8 +60,11 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ default: 0 })
   public averageRating!: number;
 
-  @prop({ required: true, _id: false })
-  public offerCoordinates!: Coordinate;
+  @prop({ required: true })
+    offerCoordinates!: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

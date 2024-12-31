@@ -1,4 +1,4 @@
-import { defaultClasses, getModelForClass, prop, ModelOptions, modelOptions } from '@typegoose/typegoose';
+import { defaultClasses, getModelForClass, prop, modelOptions } from '@typegoose/typegoose';
 import { UserType } from '../../../enums/user-type.enum.js';
 import { User } from '../../../types/index.js';
 import { createSHA256 } from '../../helpers/index.js';
@@ -28,7 +28,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   private password?: string;
 
   @prop({ required: true })
-  public type = UserType.Basic;
+  public type!: UserType;
 
   @prop({ type: () => [String], default: [] })
   public favorites!: string[];

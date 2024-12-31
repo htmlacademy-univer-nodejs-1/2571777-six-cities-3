@@ -1,18 +1,16 @@
+import { DocumentType, types } from '@typegoose/typegoose';
 import { inject, injectable } from 'inversify';
-import { OfferService, CreateOfferDto, OfferEntity, EditOfferDto, ParamOfferId } from './index.js';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../logger/index.js';
-import { DocumentType, types } from '@typegoose/typegoose';
-import { Request, Response } from 'express';
-import { CommentRdo, CommentService } from '../comment/index.js';
-import { fillDTO } from '../../helpers/index.js';
+import { CreateOfferDto, EditOfferDto, OfferEntity, OfferService } from './index.js';
+//import { CommentService } from '../comment/index.js';
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
-    @inject(Component.CommentService) private readonly commentService: CommentService
+    //@inject(Component.CommentService) private readonly commentService: CommentService
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
@@ -22,10 +20,10 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async findById(id: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(id).exec();
+    return this.offerModel.findById(id).populate('author');
   }
 
-  public async findAll(city?: string, limit = 60, sortBy: 'date' | 'price' = 'date'): Promise<DocumentType<OfferEntity>[]> {
+  public async findAll(limit = 60, city?: string, sortBy: 'date' | 'price' = 'date'): Promise<DocumentType<OfferEntity>[]> {
     const filter = city ? { city } : {};
     return this.offerModel.find(filter).sort({ [sortBy]: 1 }).limit(limit).exec();
   }
@@ -38,14 +36,14 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async edit(offerId: string, dto: EditOfferDto): Promise<DocumentType<OfferEntity>> {
+  public async edit(offerId: string, dto: EditOfferDto): Promise<DocumentType<OfferEntity> | null> {
     const offer = await this.offerModel.findByIdAndUpdate(offerId, dto, { new: true }).exec();
     if (!offer) {
       throw new Error('Offer not found');
     }
 
     this.logger.info(`Offer ${offerId} updated.`);
-    return offer;
+    return await this.findById(offerId);
   }
 
   public async delete(offerId: string): Promise<DocumentType<OfferEntity>> {

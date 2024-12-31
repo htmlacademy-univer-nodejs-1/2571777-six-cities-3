@@ -1,7 +1,7 @@
 
 import { MinLength, MaxLength, IsDateString, IsEnum, IsUrl, IsArray, ArrayMinSize, ArrayMaxSize, IsBoolean, IsNumber, Min, Max, IsInt } from 'class-validator';
 import { City, HousingType } from '../../../../../src/models/index.js';
-import { OfferValidationMessage } from '../index.js';
+import { OfferValidationMessage } from './offer-messages.js';
 
 export class GetOfferDto {
   @MinLength(10, { message: OfferValidationMessage.name.minLength })

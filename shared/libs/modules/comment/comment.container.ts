@@ -8,9 +8,9 @@ import { CommentController } from './index.js';
 export function createCommentContainer() {
   const container = new Container();
 
-  container.bind<CommentService>(Component.OfferService).to(DefaultCommentService).inSingletonScope();
-  container.bind<types.ModelType<CommentEntity>>(Component.UserModel).toConstantValue(CommentModel);
-  container.bind<Controller>(Component.OfferController).to(CommentController).inSingletonScope();
+  container.bind<CommentService>(Component.CommentService).to(DefaultCommentService).inSingletonScope();
+  container.bind<types.ModelType<CommentEntity>>(Component.CommentModel).toConstantValue(CommentModel);
+  container.bind<Controller>(Component.CommentController).to(CommentController).inSingletonScope();
 
   return container;
 }
