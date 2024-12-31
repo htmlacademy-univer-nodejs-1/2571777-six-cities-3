@@ -26,7 +26,7 @@ export abstract class BaseController implements Controller {
   }
 
   public addRoute(route: Route) {
-    const wrapperAsyncHandler = asyncHandler(route.handler.bind(this))
+    const wrapperAsyncHandler = asyncHandler(route.handler.bind(this));
     const middlewareHandlers = route.middlewares?.map(
       (item) => asyncHandler(item.execute.bind(item))
     );
@@ -36,7 +36,7 @@ export abstract class BaseController implements Controller {
   }
 
   public send<T>(res: Response, statusCode: number, data: T): void {
-    const modifiedData = this.pathTransformer.execute(data as Record<string, unknown>)
+    const modifiedData = this.pathTransformer.execute(data as Record<string, unknown>);
     res
       .type(DEFAULT_CONTENT_TYPE)
       .status(statusCode)

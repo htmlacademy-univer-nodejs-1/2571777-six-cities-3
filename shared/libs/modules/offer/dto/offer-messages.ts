@@ -1,4 +1,7 @@
 export const OfferValidationMessage = {
+  id: {
+    invalidMongoId: 'mongoId must be valid',
+  },
   name: {
     minLength: 'Minimum name length must be 10',
     maxLength: 'Maximum name length must be 100'

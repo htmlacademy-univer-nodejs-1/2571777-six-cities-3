@@ -1,4 +1,4 @@
-import { IsEnum, IsUrl, IsEmail, IsString, Length } from 'class-validator';
+import { IsEnum, IsUrl, IsEmail, IsString, Length, IsArray } from 'class-validator';
 import { UserType } from '../../../../enums/index.js';
 import { UserValidationMessage } from './user-message.js';
 
@@ -19,4 +19,8 @@ export class CreateUserDto {
 
   @IsEnum(UserType, { message: UserValidationMessage.type.invalidId })
   public type!: UserType;
+
+  @IsArray({ message: UserValidationMessage.favorites.invalidFormat})
+  @IsString({each: true, message: UserValidationMessage.favorites.invalidId})
+  public favorites!: string[];
 }

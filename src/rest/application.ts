@@ -1,6 +1,6 @@
+import cors from 'cors';
 import express, { Express } from 'express';
 import { inject, injectable } from 'inversify';
-import cors from 'cors';
 import { Config } from '../../shared/libs/config/index.js';
 import { RestSchema } from '../../shared/libs/config/rest.schema.js';
 import { DatabaseClient } from '../../shared/libs/database-client/index.js';
@@ -11,8 +11,8 @@ import {
 import { Logger } from '../../shared/libs/logger/index.js';
 import { Controller, ExceptionFilter } from '../../shared/libs/rest/index.js';
 import { ParseTokenMiddleware } from '../../shared/libs/rest/middleware/parse-token.middleware.js';
-import { STATIC_UPLOAD_ROUTE } from '../../shared/libs/rest/rest.constant.js';
 import { Component } from '../../shared/types/index.js';
+import { STATIC_UPLOAD_ROUTE } from './rest.constant.js';
 
 @injectable()
 export class RestApplication {
@@ -29,6 +29,8 @@ export class RestApplication {
     private readonly userController: Controller,
     @inject(Component.OfferController)
     private readonly offerController: Controller,
+    @inject(Component.CommentController)
+    private readonly commentController: Controller,
     @inject(Component.AuthExceptionFilter)
     private readonly authExceptionFilter: ExceptionFilter,
     @inject(Component.HttpErrorExceptionFilter)
@@ -95,6 +97,7 @@ export class RestApplication {
   private async _initControllers() {
     this.server.use('/offers', this.offerController.router);
     this.server.use('/users', this.userController.router);
+    this.server.use('/comments', this.commentController.router);
   }
 
   private async _initServer() {

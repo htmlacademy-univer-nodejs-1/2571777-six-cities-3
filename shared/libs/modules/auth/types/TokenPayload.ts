@@ -1,5 +1,7 @@
+import { Types } from 'mongoose';
+
 export type TokenPayload = {
   email: string;
   name: string;
-  id: string;
+  id: Types.ObjectId;
 };

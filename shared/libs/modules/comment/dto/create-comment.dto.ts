@@ -1,7 +1,8 @@
-import { IsDateString, IsNumber, Max, MaxLength, Min, MinLength } from 'class-validator';
+import { IsDateString, IsMongoId, IsNumber, Max, MaxLength, Min, MinLength } from 'class-validator';
 import { CommentValidationMessage } from './comment.message.js';
+import { Types } from 'mongoose';
 
-export class CommentDto {
+export class CreateCommentDto {
   @MinLength(5, {message: CommentValidationMessage.text.minLength})
   @MaxLength(1024, {message: CommentValidationMessage.text.maxLength})
   public text!: string;
@@ -13,4 +14,8 @@ export class CommentDto {
   @Min(0, {message: CommentValidationMessage.rating.minValue})
   @Max(5, {message: CommentValidationMessage.rating.maxValue})
   public rating!: number;
+
+  @IsMongoId({ message: CommentValidationMessage.authorId.invalidId})
+  public author!: Types.ObjectId;
+
 }

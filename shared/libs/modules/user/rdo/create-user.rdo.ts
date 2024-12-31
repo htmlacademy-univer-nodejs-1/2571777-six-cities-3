@@ -9,10 +9,7 @@ export class CreateUserRdo {
   public avatar!: string;
 
   @Expose()
-  public firstname!: string;
-
-  @Expose()
-  public lastname!: string;
+  public name!: string;
 
   @Expose()
   public type = UserType.Basic;

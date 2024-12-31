@@ -1,8 +1,8 @@
+import { DocumentType, types } from '@typegoose/typegoose';
 import { inject, injectable } from 'inversify';
-import { OfferService, CreateOfferDto, OfferEntity, EditOfferDto } from './index.js';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../logger/index.js';
-import { DocumentType, types } from '@typegoose/typegoose';
+import { CreateOfferDto, EditOfferDto, OfferEntity, OfferService } from './index.js';
 //import { CommentService } from '../comment/index.js';
 
 @injectable()
@@ -14,18 +14,16 @@ export class DefaultOfferService implements OfferService {
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
-    this.logger.info(dto.offerCoordinates.latitude.toString());
-    this.logger.info(dto.offerCoordinates.longitude.toString());
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.name}`);
     return result;
   }
 
   public async findById(id: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(id).populate('author').exec();
+    return this.offerModel.findById(id).populate('author');
   }
 
-  public async findAll(city?: string, limit = 60, sortBy: 'date' | 'price' = 'date'): Promise<DocumentType<OfferEntity>[]> {
+  public async findAll(limit = 60, city?: string, sortBy: 'date' | 'price' = 'date'): Promise<DocumentType<OfferEntity>[]> {
     const filter = city ? { city } : {};
     return this.offerModel.find(filter).sort({ [sortBy]: 1 }).limit(limit).exec();
   }
@@ -38,14 +36,14 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async edit(offerId: string, dto: EditOfferDto): Promise<DocumentType<OfferEntity>> {
+  public async edit(offerId: string, dto: EditOfferDto): Promise<DocumentType<OfferEntity> | null> {
     const offer = await this.offerModel.findByIdAndUpdate(offerId, dto, { new: true }).exec();
     if (!offer) {
       throw new Error('Offer not found');
     }
 
     this.logger.info(`Offer ${offerId} updated.`);
-    return offer;
+    return await this.findById(offerId);
   }
 
   public async delete(offerId: string): Promise<DocumentType<OfferEntity>> {

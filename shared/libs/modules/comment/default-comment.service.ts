@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { CommentService, CommentDto, CommentEntity } from './index.js';
+import { CommentService, CreateCommentDto, CommentEntity } from './index.js';
 import { Component } from '../../../types/index.js';
 import { Logger } from '../../logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
@@ -11,8 +11,8 @@ export class DefaultCommentService implements CommentService {
     @inject(Component.CommentModel) private readonly commentModel: types.ModelType<CommentEntity>
   ) {}
 
-  public async create(dto: CommentDto): Promise<DocumentType<CommentEntity>> {
-    const result = await this.commentModel.create(dto);
+  public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {
+    const result = (await this.commentModel.create(dto)).populate('author');
     this.logger.info(`New comment created: ${dto.text}`);
     return result;
   }

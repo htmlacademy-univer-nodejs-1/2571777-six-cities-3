@@ -2,13 +2,22 @@ import { IsDateString, MaxLength, MinLength, IsEnum, IsUrl, IsArray, IsBoolean, 
 import {
   City,
   Convenience,
-  Coordinate,
 } from '../../../../../src/models/index.js';
 import { HousingType } from '../../../../enums/index.js';
 import { OfferValidationMessage } from './offer-messages.js';
 import { Type } from 'class-transformer';
+import { Types } from 'mongoose';
+
+export class Coordinate {
+  @IsNumber()
+  public latitude!: number;
+
+  @IsNumber()
+  public longitude!: number;
+}
 
 export class OfferDto {
+  @IsMongoId({ message: OfferValidationMessage.id.invalidMongoId })
   public id!: string;
 
   @MinLength(10, { message: OfferValidationMessage.name.minLength })
@@ -70,7 +79,7 @@ export class OfferDto {
   public convenienceList!: Convenience[];
 
   @IsMongoId({message: OfferValidationMessage.author.invalidMongoId})
-  public author!: string;
+  public author!: Types.ObjectId;
 
   @IsInt({message: OfferValidationMessage.guestsCount.invalidFormat})
   @Min(0, {message: OfferValidationMessage.guestsCount.minValue})

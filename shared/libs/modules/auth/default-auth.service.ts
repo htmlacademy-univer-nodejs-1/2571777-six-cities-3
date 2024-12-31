@@ -9,6 +9,7 @@ import { TokenPayload } from './types/TokenPayload.js';
 import { Config, RestSchema } from '../../../libs/config/index.js';
 import { UserNotFoundException, UserPasswordIncorrectException } from './errors/index.js';
 import { JWT_ALGORITHM, JWT_EXPIRED } from './auth.constant.js';
+import { Types } from 'mongoose';
 
 @injectable()
 export class DefaultAuthService implements AuthService {
@@ -24,7 +25,7 @@ export class DefaultAuthService implements AuthService {
     const tokenPayload: TokenPayload = {
       email: user.email,
       name: user.name,
-      id: user.id,
+      id: new Types.ObjectId(user.id),
     };
 
     this.logger.info(`Create token for ${user.email}`);

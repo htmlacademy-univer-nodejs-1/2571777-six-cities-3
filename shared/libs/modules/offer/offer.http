@@ -1,8 +1,10 @@
 # GET http://localhost:4000/offer HTTP/1.1
 # Content-Type: application/json
 
-POST http://localhost:4000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJuYW1lIjoiSmFjayIsImlkIjoiNjc2ZmQwNTZjNzA1YWFhNTI0NjdjODcyIiwiaWF0IjoxNzM1MzgxMDgxLCJleHAiOjE3MzU1NTM4ODF9.GXhhE-AzyjUuO62phlIxyAaH3WXk0WVurKK-36hqEJY
+###
+
+POST http://localhost:3000/offers/create HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjExMUBvdmVybG9vay5uZXQiLCJuYW1lIjoiSmFjayIsImlkIjoiNjc3MjQzNjc4ZTM0ZDFlNDRhMDAxMDk5IiwiaWF0IjoxNzM1NTQxNjY3LCJleHAiOjE3MzU3MTQ0Njd9.U3sIPZISWUUIGxkL01jGNlXvfgWWFr0f54FzxP5zyN0
 Content-Type: application/json
 
 {
@@ -37,3 +39,62 @@ Content-Type: application/json
   }
 }
 
+###
+
+POST http://localhost:3000/offers/edit/6772a0d095d28a3adba58c1b HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjExMUBvdmVybG9vay5uZXQiLCJuYW1lIjoiSmFjayIsImlkIjoiNjc3MjQzNjc4ZTM0ZDFlNDRhMDAxMDk5IiwiaWF0IjoxNzM1NTQxNjY3LCJleHAiOjE3MzU3MTQ0Njd9.U3sIPZISWUUIGxkL01jGNlXvfgWWFr0f54FzxP5zyN0
+Content-Type: application/json
+
+{
+  "name": "Помои дома",
+  "offerDescription": "Краткое описание",
+  "publicationDate": "2024-12-28T10:00:00.000Z",
+  "city": "Paris",
+  "previewUrl": "https://example.com/preview.jpg",
+  "housingImages": [
+    "https://example.com/image1.jpg",
+    "https://example.com/image2.jpg",
+    "https://example.com/image3.jpg",
+    "https://example.com/image4.jpg"
+  ],
+  "isPremium": true,
+  "isFavorite": false,
+  "rating": 4.5,
+  "housingType": "apartment",
+  "roomsCount": 3,
+  "guestsCount": 5,
+  "rentalCost": 1200,
+  "convenienceList": [
+  "Air conditioning",
+  "Washer"
+  ],
+  "commentsCount": 10,
+  "averageRating": 4.2,
+  "offerCoordinates": {
+    "latitude": 55.7558,
+    "longitude": 37.6173
+  }
+}
+
+###
+
+POST http://localhost:3000/offers/delete/6772a0d095d28a3adba58c1b HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjExMUBvdmVybG9vay5uZXQiLCJuYW1lIjoiSmFjayIsImlkIjoiNjc3MjQzNjc4ZTM0ZDFlNDRhMDAxMDk5IiwiaWF0IjoxNzM1NTQxNjY3LCJleHAiOjE3MzU3MTQ0Njd9.U3sIPZISWUUIGxkL01jGNlXvfgWWFr0f54FzxP5zyN0
+
+###
+
+GET http://localhost:3000/offers/getAll?city=Paris&limit=2&orderBy=date HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjExMUBvdmVybG9vay5uZXQiLCJuYW1lIjoiSmFjayIsImlkIjoiNjc3MjQzNjc4ZTM0ZDFlNDRhMDAxMDk5IiwiaWF0IjoxNzM1NTQxNjY3LCJleHAiOjE3MzU3MTQ0Njd9.U3sIPZISWUUIGxkL01jGNlXvfgWWFr0f54FzxP5zyN0
+Content-Type: application/json
+
+###
+
+GET http://localhost:3000/offers/detailedInformation/6773904e3a2362090d5ed382 HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET http://localhost:3000/offers/getComments/6773904e3a2362090d5ed382 HTTP/1.1
+Content-Type: application/json
+
+###
