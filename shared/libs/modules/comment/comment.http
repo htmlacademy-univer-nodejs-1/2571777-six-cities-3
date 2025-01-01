@@ -1,0 +1,14 @@
+###
+
+POST http://localhost:3000/comments/create/offer/6773904e3a2362090d5ed382 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjExMUBvdmVybG9vay5uZXQiLCJuYW1lIjoiSmFjayIsImlkIjoiNjc3MjQzNjc4ZTM0ZDFlNDRhMDAxMDk5IiwiaWF0IjoxNzM1NTQxNjY3LCJleHAiOjE3MzU3MTQ0Njd9.U3sIPZISWUUIGxkL01jGNlXvfgWWFr0f54FzxP5zyN0
+Content-Type: application/json
+
+{
+  "text": "This is a sample comment for the offer.",
+  "publicationDate": "2024-12-31T12:00:00Z",
+  "rating": 4
+}
+
+
+###

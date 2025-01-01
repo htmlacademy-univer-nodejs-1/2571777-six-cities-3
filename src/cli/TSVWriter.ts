@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import { RentalOffer } from '../models/rental-offer.js';
 
 export class TSVWriter {
@@ -49,6 +49,7 @@ export class TSVWriter {
       offer.convenienceList.join(', '),
       offer.author,
       offer.commentsCount,
+      offer.averageRating,
       `${offer.offerCoordinates.latitude}, ${offer.offerCoordinates.longitude}`,
     ].join('\t');
   }
