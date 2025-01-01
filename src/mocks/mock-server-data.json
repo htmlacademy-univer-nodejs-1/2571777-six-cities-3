@@ -22,8 +22,9 @@
       "guestsCount": 4,
       "rentalCost": 80000,
       "convenienceList": ["Washer", "Fridge"],
-      "author": "https://example.com/author",
+      "author": "67723316afbfaf808a3affec",
       "commentsCount": 1,
+      "averageRating": 4.5,
       "offerCoordinates": {
         "latitude": 48.85661,
         "longitude": 2.351499
@@ -51,8 +52,9 @@
       "guestsCount": 6,
       "rentalCost": 60000,
       "convenienceList": ["Laptop friendly workspace", "Baby seat"],
-      "author": "https://example2.com/author",
+      "author": "67723316afbfaf808a3affec",
       "commentsCount": 1,
+      "averageRating": 4.5,
       "offerCoordinates": {
         "latitude": 50.846557,
         "longitude": 4.351697
@@ -80,8 +82,9 @@
       "guestsCount": 8,
       "rentalCost": 1500,
       "convenienceList": ["Air conditioning"],
-      "author": "https://example3.com/author",
+      "author": "67723316afbfaf808a3affec",
       "commentsCount": 1,
+      "averageRating": 1,
       "offerCoordinates": {
         "latitude": 53.550341,
         "longitude": 10.000654
@@ -91,7 +94,7 @@
       "name": "Люкс в центре столицы",
       "offerDescription": "Роскошный номер с видом на город, идеально подходит для романтических поездок.",
       "publicationDate": "2024-09-30T11:30:00.000Z",
-      "city": "Berlin",
+      "city": "Cologne",
       "previewUrl": "https://example4.com/preview",
       "housingImages": [
         "https://example4.com/images/0",
@@ -106,8 +109,9 @@
       "guestsCount": 2,
       "rentalCost": 120000,
       "convenienceList": ["TV", "Wi-Fi"],
-      "author": "https://example4.com/author",
+      "author": "67723316afbfaf808a3affec",
       "commentsCount": 1,
+      "averageRating": 4,
       "offerCoordinates": {
         "latitude": 52.520008,
         "longitude": 13.404954
@@ -132,8 +136,9 @@
       "guestsCount": 5,
       "rentalCost": 90000,
       "convenienceList": ["Grill", "Parking"],
-      "author": "https://example5.com/author",
+      "author": "677243678e34d1e44a001099",
       "commentsCount": 1,
+      "averageRating": 3,
       "offerCoordinates": {
         "latitude": 52.3676,
         "longitude": 4.9041
@@ -143,8 +148,8 @@
       "name": "Квартира-студия на пляже",
       "offerDescription": "Отличный выбор для любителей моря и солнца.",
       "publicationDate": "2024-09-30T14:00:00.000Z",
-      "city": "Barcelona",
-      "previewUrl": "https://example6.com/preview",
+      "city": "Dusseldorf",
+      "previewUrl": "677243678e34d1e44a001099",
       "housingImages": [
         "https://example6.com/images/0",
         "https://example6.com/images/1",
@@ -153,13 +158,14 @@
       "isPremium": true,
       "isFavorite": false,
       "rating": 4.7,
-      "housingType": "studio",
+      "housingType": "hotel",
       "roomsCount": 1,
       "guestsCount": 2,
       "rentalCost": 85000,
       "convenienceList": ["Ocean view", "Balcony"],
-      "author": "https://example6.com/author",
+      "author": "677243678e34d1e44a001099",
       "commentsCount": 1,
+      "averageRating": 2.5,
       "offerCoordinates": {
         "latitude": 41.3851,
         "longitude": 2.1734
@@ -169,7 +175,7 @@
       "name": "Современный лофт в бизнес-районе",
       "offerDescription": "Подходит для деловых поездок и краткосрочной аренды.",
       "publicationDate": "2024-09-30T16:15:00.000Z",
-      "city": "London",
+      "city": "Dusseldorf",
       "previewUrl": "https://example7.com/preview",
       "housingImages": [
         "https://example7.com/images/0",
@@ -179,13 +185,14 @@
       "isPremium": false,
       "isFavorite": true,
       "rating": 4.3,
-      "housingType": "loft",
+      "housingType": "hotel",
       "roomsCount": 2,
       "guestsCount": 3,
       "rentalCost": 75000,
       "convenienceList": ["Conference room", "Wi-Fi"],
-      "author": "https://example7.com/author",
+      "author": "677243678e34d1e44a001099",
       "commentsCount": 1,
+      "averageRating": 5,
       "offerCoordinates": {
         "latitude": 51.5074,
         "longitude": -0.1278
@@ -195,7 +202,7 @@
       "name": "Семейный апартамент у озера",
       "offerDescription": "Идеальное место для семейного отдыха, рядом с природой.",
       "publicationDate": "2024-09-30T18:00:00.000Z",
-      "city": "Zurich",
+      "city": "Brussels",
       "previewUrl": "https://example8.com/preview",
       "housingImages": [
         "https://example8.com/images/0",
@@ -210,8 +217,9 @@
       "guestsCount": 4,
       "rentalCost": 100000,
       "convenienceList": ["Kayak", "Fishing"],
-      "author": "https://example8.com/author",
+      "author": "677243678e34d1e44a001099",
       "commentsCount": 1,
+      "averageRating": 3.5,
       "offerCoordinates": {
         "latitude": 47.376886,
         "longitude": 8.541694
