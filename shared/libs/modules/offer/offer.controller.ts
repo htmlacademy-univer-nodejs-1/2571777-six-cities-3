@@ -146,7 +146,6 @@ export class OfferController extends BaseController {
     }
 
     const result = await this.offerService.edit(params.offerId, body);
-    console.log(result);
     this.ok(res, fillDTO(EditOfferRdo, result));
   }
 

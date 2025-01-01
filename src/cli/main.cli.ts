@@ -6,24 +6,23 @@ import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import 'reflect-metadata';
-import { Logger } from '../../shared/libs/logger/index.js';
-import { Component } from '../../shared/types/component.js';
+import { PinoLogger } from '../../shared/libs/logger/index.js';
 import { TSVReader } from './TSVReader.js';
 import { TSVWriter } from './TSVWriter.js';
-import { appContainer } from '../main.rest.js';
 import { RentalOffer } from '../models/rental-offer.js';
 import { getMongoURI } from '../../shared/libs/helpers/index.js';
 import { DEFAULT_DB_PORT } from './command.constants.js';
-import { DatabaseClient } from '../../shared/libs/database-client/database-client.interface.js';
-import { DefaultOfferService } from '../../shared/libs/modules/offer/index.js';
+import { DefaultOfferService, OfferEntity, OfferModel } from '../../shared/libs/modules/offer/index.js';
+import { types } from '@typegoose/typegoose';
+import { MongoDatabaseClient } from '../../shared/libs/database-client/mongo.database-client.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const rentalOfferService = appContainer.get<DefaultOfferService>(
-  Component.OfferService
-);
-const logger = appContainer.get<Logger>(Component.Logger);
+const logger = new PinoLogger();
+const offerModel: types.ModelType<OfferEntity> = OfferModel;
+const rentalOfferService = new DefaultOfferService(logger, offerModel);
+
 
 const version = JSON.parse(
   fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf-8')
@@ -36,6 +35,9 @@ const showHelp = () => {
   console.log(
     `${chalk.green('--import <filename>:')} импортирует данные из TSV-файла`
   );
+  console.log(
+    `${chalk.green('--generate <n> <filename> <url>:')} генерирует произвольное количество тестовые данных`
+  );
 };
 
 const importData = async (
@@ -46,7 +48,7 @@ const importData = async (
   dbname: string
 ): Promise<void> => {
   const reader: TSVReader = new TSVReader(filePath);
-  const databaseClient = appContainer.get<DatabaseClient>(Component.DatabaseClient);
+  const databaseClient = new MongoDatabaseClient(logger);
   const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
   await databaseClient.connect(uri);
   let readNext = true;
@@ -57,7 +59,6 @@ const importData = async (
       readNext = false;
       continue;
     }
-    logger.info(JSON.stringify(result));
     const [rentalOffer, countRentalOffers] = result;
 
     try {
