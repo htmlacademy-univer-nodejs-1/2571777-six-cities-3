@@ -16,8 +16,8 @@ import { DefaultOfferService, OfferEntity, OfferModel } from '../../shared/libs/
 import { types } from '@typegoose/typegoose';
 import { MongoDatabaseClient } from '../../shared/libs/database-client/mongo.database-client.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const filename = fileURLToPath(import.meta.url);
+const Dirname = dirname(filename);
 
 const logger = new PinoLogger();
 const offerModel: types.ModelType<OfferEntity> = OfferModel;
@@ -25,7 +25,7 @@ const rentalOfferService = new DefaultOfferService(logger, offerModel);
 
 
 const version = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf-8')
+  fs.readFileSync(path.join(Dirname, '../../package.json'), 'utf-8')
 ).version;
 
 const showHelp = () => {
